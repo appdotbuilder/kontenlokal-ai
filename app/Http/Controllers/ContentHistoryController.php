@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\GeneratedContent;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+
 
 class ContentHistoryController extends Controller
 {
@@ -36,7 +36,7 @@ class ContentHistoryController extends Controller
 
         $contents = $query->paginate(15)->withQueryString();
 
-        return Inertia::render('content-history', [
+        return view('content.history', [
             'contents' => $contents,
             'filters' => $request->only(['status', 'content_type', 'search']),
         ]);

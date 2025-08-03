@@ -11,9 +11,7 @@ class WelcomePageTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => 
-            $page->component('welcome')
-        );
+        $response->assertViewIs('welcome');
     }
 
     public function test_health_check_endpoint(): void

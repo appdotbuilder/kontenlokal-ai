@@ -8,7 +8,7 @@ use App\Models\ContentType;
 use App\Models\GeneratedContent;
 use App\Services\AIEngineService;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+
 
 class ContentGeneratorController extends Controller
 {
@@ -37,7 +37,7 @@ class ContentGeneratorController extends Controller
                 ];
             });
 
-        return Inertia::render('content-generator', [
+        return view('content.generator', [
             'contentTypes' => $contentTypes,
             'recentContents' => $recentContents,
             'userCredits' => auth()->user()->credits,
@@ -72,14 +72,11 @@ class ContentGeneratorController extends Controller
         // Deduct credits
         $user->deductCredits($contentType->credit_cost);
 
-        // Process content generation asynchronously (simulated)
-        // In production, this would be dispatched to a queue
-        dispatch(function () use ($generatedContent) {
-            app(\App\Services\ContentGenerationService::class)->processGeneration($generatedContent);
-        })->afterResponse();
+        // Process content generation
+        app(\App\Services\ContentGenerationService::class)->processGeneration($generatedContent);
 
         return redirect()->route('content.show', $generatedContent)
-            ->with('success', 'Konten sedang diproses. Anda akan menerima notifikasi setelah selesai.');
+            ->with('success', 'Konten berhasil dibuat!');
     }
 
     /**
@@ -94,7 +91,7 @@ class ContentGeneratorController extends Controller
 
         $content->load('contentType');
 
-        return Inertia::render('generated-content', [
+        return view('content.show', [
             'content' => $content,
         ]);
     }

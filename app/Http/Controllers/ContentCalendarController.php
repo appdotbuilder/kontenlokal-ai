@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ContentCalendar;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+
 
 class ContentCalendarController extends Controller
 {
@@ -56,7 +56,7 @@ class ContentCalendarController extends Controller
                 ];
             });
 
-        return Inertia::render('content-calendar', [
+        return view('calendar.index', [
             'events' => $events,
             'upcomingEvents' => $upcomingEvents,
             'currentMonth' => $month,

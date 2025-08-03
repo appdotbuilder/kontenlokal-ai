@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\SubscriptionPlan;
-use Inertia\Inertia;
+
 
 class PricingController extends Controller
 {
@@ -34,7 +34,7 @@ class PricingController extends Controller
                 ];
             });
 
-        return Inertia::render('pricing', [
+        return view('pricing.index', [
             'plans' => $plans,
         ]);
     }

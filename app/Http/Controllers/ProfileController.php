@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateBrandVoiceRequest;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+
 
 class ProfileController extends Controller
 {
@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        return Inertia::render('profile', [
+        return view('profile.index', [
             'user' => $user,
             'subscription' => [
                 'tier' => $user->subscription_tier,

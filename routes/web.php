@@ -6,7 +6,7 @@ use App\Http\Controllers\ContentHistoryController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
 
 Route::get('/health-check', function () {
     return response()->json([
@@ -17,7 +17,7 @@ Route::get('/health-check', function () {
 
 // Home page - main functionality
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return view('welcome');
 })->name('home');
 
 // Public pages
@@ -27,7 +27,9 @@ Route::get('/calendar', [ContentCalendarController::class, 'index'])->name('cale
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard - main functionality
-    Route::get('/dashboard', [ContentGeneratorController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
     
     // Content generation routes
     Route::controller(ContentGeneratorController::class)->group(function () {
